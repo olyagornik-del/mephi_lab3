@@ -11,7 +11,7 @@ class BitSequence: public Sequence<Bit> {
 private:
     DynamicArray<unsigned int> blocks;
     int bit_count; // кол-во битов
-    static const int bits_per_block = 32; // сколько битов в 1 блоке
+    static const int bits_per_block = 8*sizeof(unsigned int);
 
     void SetBit(int index, Bit value) {
         int block_i = index / bits_per_block;
@@ -29,7 +29,9 @@ private:
         if (bit_count % bits_per_block == 0) //тоже самое что и (bit_count+1)>blocks.GetSize()*bits_per_block
             blocks.Resize(blocks.GetSize() + 1);
     }
-
+protected:
+    Sequence<Bit>* Instance() const override { return new BitSequence(); }
+    void AppendInPlace(const Bit& item) override { GrowIfNeeded(); bit_count++; SetBit(bit_count-1, item); }
 public:
     //конструкторы
     BitSequence(): blocks(), bit_count(0) {}
@@ -125,25 +127,6 @@ public:
         }
         for (int i=0; i<other->GetLength();i++) {
             result->SetBit(i+GetLength(), other->Get(i));
-        }
-        return result;
-    }
-
-    //map
-    Sequence<Bit>* Map(Bit (*f) (Bit)) const override {
-        BitSequence *result = new BitSequence(GetLength());
-        for (int i=0; i<GetLength(); i++) {
-            result->SetBit(i, f(Get(i)));
-        }
-        return result;
-    }
-    // where
-    Sequence<Bit>* Where(bool(*f)(Bit)) const override { // для читаемости хотя по факту одно и тоже
-        BitSequence *result = new BitSequence();
-        for (int i=0; i<GetLength();i++) {
-            if (f(Get(i))) {
-                result->Append(Get(i));
-            }
         }
         return result;
     }

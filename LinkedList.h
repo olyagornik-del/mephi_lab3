@@ -156,6 +156,17 @@ public:
         return result;
     }
 
+    //итератор, чтобы от квадратичной сложности избавиться
+    class Iterator {
+        Node* node;
+    public:
+        explicit Iterator(Node* n): node(n) {}
+        bool HasNext() const { return node != nullptr; }
+        T Current() const { return node->value; }
+        void Next() { node = node->next; }
+    };
+    Iterator GetIterator() const { return Iterator(head); }
+
     ~LinkedList() {
         Node *current = head;
         for (int i=0; i<size; i++) {
