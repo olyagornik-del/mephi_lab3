@@ -1,7 +1,7 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../Sequences/BitSequence.h"
+#include "../core/Sequences/BitSequence.h"
 
 //testArraySequence вспомогательные функции для Map / Where / Reduce
 static Bit InvertBit(Bit b) {

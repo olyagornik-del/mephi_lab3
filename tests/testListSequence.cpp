@@ -1,7 +1,7 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../Sequences/MutableListSequence.h"
+#include "../core/Sequences/MutableListSequence.h"
 
 static int OneAnd(int x) {
     return x * 2;

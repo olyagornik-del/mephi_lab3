@@ -1,8 +1,8 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../Sequences/MutableArraySequence.h"
-#include "../Sequences/MutableListSequence.h"
+#include "../core/Sequences/MutableArraySequence.h"
+#include "../core/Sequences/MutableListSequence.h"
 
 void testMutableArraySequenceAppend() {
     MutableArraySequence<int> Seq;

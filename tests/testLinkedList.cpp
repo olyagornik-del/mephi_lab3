@@ -1,7 +1,7 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../LinkedList.h"
+#include "../core/LinkedList.h"
 
 void testLinkedListCreate() {
     // конструктор по умолчанию
@@ -177,6 +177,77 @@ void testLinkedListConcat() {
     printf("  [OK] testLinkedListConcat\n");
 }
 
+void testLinkedListRemoveAt() {
+    //пустой список
+    LinkedList<int> Empty;
+    bool threw = false;
+    try { Empty.RemoveAt(0); } catch (const OutOfRange&) { threw = true; }
+    assert(threw);
+
+    // индекс вне диапазона
+    int items[] = {10, 20, 30, 40, 50};
+    LinkedList<int> list(items, 5);
+
+    threw = false;
+    try { list.RemoveAt(-1); } catch (const OutOfRange&) { threw = true; }
+    assert(threw);
+
+    threw = false;
+    try { list.RemoveAt(5); } catch (const OutOfRange&) { threw = true; }
+    assert(threw);
+
+    // [10, 20, 30, 40, 50] -> [10, 20, 40, 50]
+    list.RemoveAt(2);
+    assert(list.GetLength() == 4);
+    assert(list.Get(1) == 20);
+    assert(list.Get(2) == 40);
+
+    // [10, 20, 40, 50] -> [10, 20, 40]
+    list.RemoveAt(3);
+    assert(list.GetLength() == 3);
+    assert(list.GetLast() == 40); // tail должен переехать на 40
+
+    // [10,20,40,99]
+    list.Append(99);
+    assert(list.GetLength() == 4);
+    assert(list.GetLast() == 99);
+    assert(list.Get(3) == 99);
+
+    //[10, 20, 40] -> [20, 40, 99]
+    list.RemoveAt(0);
+    assert(list.GetLength() == 3);
+    assert(list.GetFirst() == 20);
+    assert(list.Get(0) == 20);
+
+    // [7] -> []
+    LinkedList<int> single;
+    single.Append(7);
+    single.RemoveAt(0);
+    assert(single.GetLength() == 0);
+
+    //проверяем список пуст
+    threw = false;
+    try { single.GetFirst(); } catch (const OutOfRange&) { threw = true; }
+    assert(threw);
+    threw = false;
+    try { single.RemoveAt(0); } catch (const OutOfRange&) { threw = true; }
+    assert(threw);
+    single.Append(123); // [] -> [123]
+    assert(single.GetLength() == 1);
+    assert(single.GetFirst() == 123);
+    assert(single.GetLast() == 123);
+
+    // [1, 2, 3] -> [2, 3] -> [3] -> []
+    int more[] = {1, 2, 3};
+    LinkedList<int> drain(more, 3);
+    drain.RemoveAt(0);
+    drain.RemoveAt(0);
+    drain.RemoveAt(0);
+    assert(drain.GetLength() == 0);
+
+    printf("  [OK] testLinkedListRemoveAt\n");
+}
+
 void testLinkedListAll() {
     printf("=== Тесты LinkedList ===\n");
     testLinkedListCreate();
@@ -187,5 +258,6 @@ void testLinkedListAll() {
     testLinkedListInsertAt();
     testLinkedListGetSubList();
     testLinkedListConcat();
+    testLinkedListRemoveAt();
     printf("=== Все тесты пройдены! ===\n\n");
 }

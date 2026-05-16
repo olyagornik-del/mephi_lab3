@@ -1,7 +1,7 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../DynamicArray.h"
+#include "../core/DynamicArray.h"
 
 void testDynamicArrayCreate() {
     // конструктор по умолчанию
@@ -86,11 +86,48 @@ void testDynamicArrayResize() {
     printf("  [OK] testDynamicArrayResize\n");
 }
 
+void testDynamicArrayRemoveAt() {
+    DynamicArray<int> Empty;
+
+    //передаём пустой список
+    bool threw = false;
+    try { Empty.RemoveAt(0); } catch (const OutOfRange) { threw = true; }
+    assert(threw);
+
+    //передаём заполненный массив и проверяем на выход за пределы
+    int items[] = {1, 2, 3, 4, 5, 6};
+    DynamicArray<int> Array(items, 6);
+    threw = false;
+    try { Array.RemoveAt(6); } catch (const OutOfRange) { threw = true; }
+    assert(threw);
+
+    //[1, 2, 3, 4, 5, 6] -> [1, 2, 4, 5, 6]
+    Array.RemoveAt(2);
+    assert(Array.GetSize() == 5);
+    assert(Array.Get(1) == 2);
+    assert(Array.Get(2) == 4);
+
+    //[1, 2, 4, 5, 6] -> [2, 4, 5, 6]
+    Array.RemoveAt(0);
+    assert(Array.GetSize() == 4);
+    assert(Array.Get(0) == 2);
+    assert(Array.Get(1) == 4);
+
+    //[2, 4, 5, 6] -> [2, 4, 5]
+    Array.RemoveAt(3);
+    assert(Array.GetSize() == 3);
+    assert(Array.Get(2) == 5);
+
+
+    printf("  [OK] testDynamicArrayRemoveAt\n");
+}
+
 void testDynamicArrayAll() {
     printf("=== Тесты DynamicArray ===\n");
     testDynamicArrayCreate();
     testDynamicArrayGet();
     testDynamicArraySet();
     testDynamicArrayResize();
+    testDynamicArrayRemoveAt();
     printf("=== Все тесты пройдены! ===\n\n");
 }

@@ -1,7 +1,7 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../Sequences/MutableArraySequence.h"
+#include "../core/Sequences/MutableArraySequence.h"
 
 //testArraySequence вспомогательные функции для Map / Where / Reduce
 static int DoubleIt(int x) {

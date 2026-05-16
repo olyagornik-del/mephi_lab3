@@ -1,8 +1,8 @@
 #include <cassert> // assert
 #include <cstdio> //printf
 
-#include "../Sequences/ImmutableArraySequence.h"
-#include "../Sequences/ImmutableListSequence.h"
+#include "../core/Sequences/ImmutableArraySequence.h"
+#include "../core/Sequences/ImmutableListSequence.h"
 
 static int DoubleIt(int x) {
     return x * 2;
