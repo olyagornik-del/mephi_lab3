@@ -5,6 +5,7 @@ void testListSequenceAll();
 void testMutableAll();
 void testImmutableAll();
 void testBitSequenceAll();
+void testICollectionAll();
 
 int main() {
     testDynamicArrayAll();
@@ -14,4 +15,5 @@ int main() {
     testMutableAll();
     testImmutableAll();
     testBitSequenceAll();
+    testICollectionAll();
 }

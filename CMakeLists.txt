@@ -37,4 +37,5 @@ add_executable(lab3_tests
         core/Sequences/MutableListSequence.h
         core/Sequences/ImmutableArraySequence.h
         core/Sequences/ImmutableListSequence.h
+        tests/testICollection.cpp
 )
