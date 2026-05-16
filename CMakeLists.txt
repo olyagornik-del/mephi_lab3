@@ -6,17 +6,18 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(lab3
         main.cpp
         my_except.h
-        DynamicArray.h
-        LinkedList.h
-        Sequences/Sequence.h
-        Sequences/MutableArraySequence.h
-        Sequences/MutableListSequence.h
-        Sequences/ImmutableArraySequence.h
-        Sequences/ImmutableListSequence.h
-        Sequences/BitSequence.h
+        core/DynamicArray.h
+        core/LinkedList.h
+        core/Sequences/Sequence.h
+        core/Sequences/MutableArraySequence.h
+        core/Sequences/MutableListSequence.h
+        core/Sequences/ImmutableArraySequence.h
+        core/Sequences/ImmutableListSequence.h
+        core/Sequences/BitSequence.h
         scanValues.h
         menu.h
-        SequenceOperations.h)
+        SequenceOperations.h
+        core/Sequences/ICollection.h)
 
 add_executable(lab3_tests
         tests/test.cpp
@@ -26,14 +27,14 @@ add_executable(lab3_tests
         tests/testListSequence.cpp
         tests/testMutable.cpp
         tests/testImmutable.cpp
-        Sequences/BitSequence.h
+        core/Sequences/BitSequence.h
         tests/testBitSequence.cpp
         my_except.h
-        DynamicArray.h
-        LinkedList.h
-        Sequences/Sequence.h
-        Sequences/MutableArraySequence.h
-        Sequences/MutableListSequence.h
-        Sequences/ImmutableArraySequence.h
-        Sequences/ImmutableListSequence.h
+        core/DynamicArray.h
+        core/LinkedList.h
+        core/Sequences/Sequence.h
+        core/Sequences/MutableArraySequence.h
+        core/Sequences/MutableListSequence.h
+        core/Sequences/ImmutableArraySequence.h
+        core/Sequences/ImmutableListSequence.h
 )

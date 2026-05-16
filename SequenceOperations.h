@@ -3,12 +3,12 @@
 
 #include <type_traits> //std::is_same
 
-#include "Sequences/Sequence.h"
-#include "Sequences/MutableArraySequence.h"
-#include "Sequences/ImmutableArraySequence.h"
-#include "Sequences/MutableListSequence.h"
-#include "Sequences/ImmutableListSequence.h"
-#include "Sequences/BitSequence.h"
+#include "core/Sequences/Sequence.h"
+#include "core/Sequences/MutableArraySequence.h"
+#include "core/Sequences/ImmutableArraySequence.h"
+#include "core/Sequences/MutableListSequence.h"
+#include "core/Sequences/ImmutableListSequence.h"
+#include "core/Sequences/BitSequence.h"
 #include "my_except.h"
 #include "scanValues.h"
 #include "menu.h"

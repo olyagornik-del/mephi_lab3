@@ -1,7 +1,7 @@
 #ifndef LAB2_DYNAMICARRAY_H
 #define LAB2_DYNAMICARRAY_H
 
-#include "my_except.h"
+#include "../my_except.h"
 
 template <class T>
 
@@ -76,6 +76,20 @@ public:
         else {
             size = new_size;
         }
+    }
+
+    //удаляем элемент по индексу
+    void RemoveAt(int index) {
+        if (size == 0) {
+            throw OutOfRange("ну нельзя у пустого массива что-то удалить");
+        }
+        if (index < 0 || index >= size) {
+            throw OutOfRange("index", index, 0, size - 1);
+        }
+        for (int i = index+1; i < size; i++ ) {
+            data[i-1] = data[i]; //можно и Set(i-1, Get(i)); но это влечёт доп проверки, а зачем
+        }
+        Resize(size-1);
     }
 
     ~DynamicArray() {

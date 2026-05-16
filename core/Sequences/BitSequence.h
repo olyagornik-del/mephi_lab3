@@ -1,7 +1,7 @@
 #ifndef LAB2_BITSEQUENCE_H
 #define LAB2_BITSEQUENCE_H
 
-#include "../my_except.h"
+#include "../../my_except.h"
 #include "../DynamicArray.h"
 #include "Sequence.h"
 

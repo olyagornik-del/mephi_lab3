@@ -1,7 +1,7 @@
 #ifndef LAB2_LINKEDLIST_H
 #define LAB2_LINKEDLIST_H
 
-#include "my_except.h"
+#include "../my_except.h"
 
 template <class T>
 
@@ -166,6 +166,38 @@ public:
         void Next() { node = node->next; }
     };
     Iterator GetIterator() const { return Iterator(head); }
+
+    //удалить по индексу
+    void RemoveAt(int index) {
+        if (size == 0) {
+            throw OutOfRange("ну нельзя у пустого массива что-то удалить");
+        }
+        if (index < 0 || index >= size) {
+            throw OutOfRange("index", index, 0, size - 1);
+        }
+        if (index != 0) {
+            Node *temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp->next;
+            }
+            Node *will_delete = temp->next; //узел, который удалим
+            temp->next = will_delete->next;
+            if (will_delete == tail) {
+                tail = temp;
+            }
+            delete will_delete;
+            size--;
+        }
+        else {
+            Node *will_delete = head;
+            head = head->next;
+            if (head == nullptr) // список опустел (был единственный узел)
+                tail = nullptr;
+            delete will_delete;
+            size--;
+        }
+
+    }
 
     ~LinkedList() {
         Node *current = head;
