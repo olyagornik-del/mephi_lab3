@@ -92,6 +92,14 @@ public:
         return result;
     }
 
+    ICollection<T>* Clone() const override {
+        MutableListSequence<T>* result = this->Instance();
+        for (auto it = data.GetIterator(); it.HasNext(); it.Next()) {
+            result->AppendInPlace(it.Current());
+        }
+        return result;
+    }
+
 };
 
 #endif //LAB2_MUTABLELISTSEQUENCE_H

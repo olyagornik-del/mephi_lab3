@@ -1,18 +1,20 @@
 #ifndef LAB2_SEQUENCE_H
 #define LAB2_SEQUENCE_H
 
-#include "../my_except.h"
+#include "../../my_except.h"
+#include "ICollection.h"
 
 template <class T>
 
-class Sequence {
+class Sequence: public ICollection<T>{
 protected:
     virtual Sequence<T>* Instance() const = 0;
     virtual void AppendInPlace(const T& item) = 0; // чтобы избежать N копий в конкате
 public:
     // получаем что-то
     virtual int GetLength() const = 0;
-    virtual T Get(int index) const = 0;
+    int GetCount() const override { return GetLength(); }
+    virtual T Get(int index) const override = 0;
     T GetFirst() const { return Get(0); }
     T GetLast() const { return Get(GetLength()-1); }
     virtual Sequence<T>* GetSubsequence(int start_index, int end_index) const {
@@ -61,6 +63,14 @@ public:
         }
         return result;
     };
+
+    virtual ICollection<T>* Clone() const override {
+        Sequence<T> *result = Instance();
+        for (int i=0; i<GetLength(); i++) {
+            result->AppendInPlace(Get(i));
+        }
+        return result;
+    }
 
     //перопределение оператора
     T operator[](int index) const { return Get(index); }; //поднять
