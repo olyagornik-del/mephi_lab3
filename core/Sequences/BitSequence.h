@@ -131,6 +131,19 @@ public:
         return result;
     }
 
+    void RemoveAt(int index) override {
+        if (GetLength() == 0) {
+            throw OutOfRange("Последовательность пуста");
+        }
+        if (index < 0 || index > GetLength()) {
+            throw OutOfRange("index", index, 0, GetLength());
+        }
+        for (int i = index; i < bit_count - 1; i++) {
+            SetBit(i, Get(i + 1));
+        }
+        bit_count--;
+    }
+
     //побитовые операции
     BitSequence* And(const BitSequence *other) const {
         if (other==nullptr) {

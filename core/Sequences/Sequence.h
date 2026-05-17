@@ -42,27 +42,30 @@ public:
     }
 
     //функции map-where-reduce
-    virtual Sequence<T>* Map(T (*f)(T)) const {
+    virtual Sequence<T>* Map(T (*f)(const T &)) const {
         Sequence<T>* result = Instance();
         for (int i = 0; i < GetLength(); i++)
             result->AppendInPlace(f(Get(i)));
         return result;
     }
 
-    virtual Sequence<T>* Where(bool (*f)(T)) const {
+    virtual Sequence<T>* Where(bool (*f)(const T &)) const {
         Sequence<T>* result = Instance();
         for (int i = 0; i < GetLength(); i++)
             if (f(Get(i)))
                 result->AppendInPlace(Get(i));
         return result;
     }
-    T Reduce(T (*f)(T, T), T start) const {
+    T Reduce(T (*f)(const T &, const T &), const T & start) const {
         T result = start;
         for (int i=0; i<GetLength(); i++) {
             result = f(result, Get(i));
         }
         return result;
     };
+
+    virtual void RemoveAt(int index) = 0;
+    void RemoveLast() { RemoveAt(GetLength()-1); }
 
     virtual ICollection<T>* Clone() const override {
         Sequence<T> *result = Instance();

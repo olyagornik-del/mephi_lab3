@@ -77,14 +77,14 @@ public:
         return result;
     }
 
-    Sequence<T>* Map(T (*f)(T)) const override {
+    Sequence<T>* Map(T (*f)(const T&)) const override {
         MutableListSequence<T>* result = this->Instance();
         for (auto it = data.GetIterator(); it.HasNext(); it.Next())
             result->AppendInPlace(f(it.Current()));
         return result;
     }
 
-    Sequence<T>* Where(bool (*f)(T)) const override {
+    Sequence<T>* Where(bool (*f)(const T&)) const override {
         MutableListSequence<T>* result = this->Instance();
         for (auto it = data.GetIterator(); it.HasNext(); it.Next())
             if (f(it.Current()))
@@ -100,6 +100,15 @@ public:
         return result;
     }
 
+    void RemoveAt(int index) override {
+        if (GetLength() == 0) {
+            throw OutOfRange("ну нельзя у пустого массива что-то удалить");
+        }
+        if (index < 0 || index >= GetLength()) {
+            throw OutOfRange("index", index, 0, GetLength() - 1);
+        }
+        data.RemoveAt(index);
+    }
 };
 
 #endif //LAB2_MUTABLELISTSEQUENCE_H

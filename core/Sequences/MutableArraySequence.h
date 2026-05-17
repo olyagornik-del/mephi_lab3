@@ -74,6 +74,16 @@ public:
         return result;
     }
 
+    void RemoveAt(int index) override {
+        if (GetLength() == 0) {
+            throw OutOfRange("ну нельзя у пустого массива что-то удалить");
+        }
+        if (index < 0 || index >= GetLength()) {
+            throw OutOfRange("index", index, 0, GetLength() - 1);
+        }
+        data.RemoveAt(index);
+    }
+
 };
 
 #endif //LAB2_MUTABLEARRAYSEQUENCE_H

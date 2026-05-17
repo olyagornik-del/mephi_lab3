@@ -39,3 +39,6 @@ add_executable(lab3_tests
         core/Sequences/ImmutableListSequence.h
         tests/testICollection.cpp
 )
+
+target_compile_options(lab3_tests PRIVATE -fsanitize=address,undefined -g -O1)
+target_link_options(lab3_tests PRIVATE -fsanitize=address,undefined)
